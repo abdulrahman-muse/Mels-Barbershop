@@ -7,7 +7,7 @@ function Login({ setUser }) {
 
     return (
         <section>
-            <h1>Game Review App</h1>
+            <h1>Mel's Barbershop</h1>
             {showLogin ? (
                 <>
                     <LoginForm setUser={setUser} />
