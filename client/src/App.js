@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import Home from './components/Home';
 import MyAppointments from './components/MyAppointments';
-import BookingForm from './components/BookingForm';
 import Barbers from './components/Barbers';
 
 
@@ -18,7 +17,9 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [barbers, setBarbers] = useState([]);
-  const [services, setServices] = useState();
+  const [services, setServices] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+  const [errors, setErrors] = useState([]);
   
 
 
@@ -47,6 +48,44 @@ function App() {
       })
   }, []);
 
+  useEffect(() => {
+    fetch("/appointments")
+      .then((response) => response.json())
+      .then((data) => {
+        setAppointments(data);
+      })
+  }, []);
+
+  const bookAppt = (formData) => {
+    fetch("/appointments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }).then((response) => {
+      if (response.ok) {
+        response.json().then((newAppt) => setAppointments([...appointments, newAppt]));
+        
+      } else {
+        response.json().then((errorData) => setErrors(errorData.errors));
+      }
+    })
+  }
+
+
+  function cancelAppt(id) {
+    fetch(`/appointments/${id}`, {
+      method: "DELETE",
+    })
+      .then((r) => r.json())
+      .then((deletedAppt) => {
+        console.log(deletedAppt)
+        const filteredAppts = appointments.filter((a) => a.id !== id)
+        setAppointments(filteredAppts)
+      });
+  }
+
 
   if (!user) return <Login setUser={setUser} />;
 
@@ -62,10 +101,10 @@ function App() {
           <Barbers barbers={barbers} services={services}/>
         </Route>
         <Route exact path="/my-appointments">
-          <MyAppointments/>
+          <MyAppointments cancelAppt={cancelAppt} barbers={barbers} errors={errors} services={services} user={user} bookAppt={bookAppt} appointments={appointments}/>
         </Route>
-        <Route exact path="/booking">
-          <BookingForm/>
+        <Route exact path="/my-appointments/:id">
+          <MyAppointments cancelAppt={cancelAppt} barbers={barbers} errors={errors} services={services} user={user} bookAppt={bookAppt} appointments={appointments}/>
         </Route>
       </Switch>
       </Router>

@@ -22,7 +22,6 @@ function NavBar({ setUser, user }) {
                         <Nav.Link as={NavLink} exact to={"/"}>Home</Nav.Link>
                         <Nav.Link as={NavLink} exact to={"/barbers"}>Services</Nav.Link>
                         <Nav.Link as={NavLink} exact to={"/my-appointments"}>My Appointments</Nav.Link>
-                        <Nav.Link as={NavLink} exact to={"/booking"}>Book An Appointment</Nav.Link>
                     </Nav>
                     <Nav>
                     <Button variant="secondary" onClick={handleLogoutClick}>Logout</Button>
