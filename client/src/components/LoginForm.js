@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Container, Form, Button, Alert, FloatingLabel } from "react-bootstrap";
 
 function LoginForm({ setUser }) {
     const [username, setUsername] = useState("");
@@ -26,39 +28,41 @@ function LoginForm({ setUser }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    autoComplete="off"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            <div>
-                <button>
-                    {isLoading ? "Loading..." : "Login"}
-                </button>
-            </div>
-            <div>
-                {errors.map((err) => (
-                    <p key={err}>{err}</p>
-                ))}
-            </div>
-        </form>
+        <Container>
+            <Form style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }} onSubmit={handleSubmit}>
+                <Form.Group>
+                    <FloatingLabel label="Username">
+                        <Form.Control
+                            type="text"
+                            id="username"
+                            autoComplete="username"
+                            value={username}
+                            placeholder="Username"
+                            className="mb-3"
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel label="Password">
+                        <Form.Control
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={password}
+                            placeholder="Password"
+                            className="mb-3"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </FloatingLabel>
+                    <Button variant="dark" className='m-3' type="submit"> {isLoading ? "Loading..." : "Login"} </Button>
+                    <div>
+                        {errors.map((err) => (
+                            <Alert key={err} variant={'danger'}>{err}</Alert>
+                        ))}
+                    </div>
+                </Form.Group>
+            </Form>
+        </Container>
     );
 }
 
-export default LoginForm; 
+export default LoginForm;

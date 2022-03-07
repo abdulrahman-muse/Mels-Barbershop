@@ -1,7 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar, Nav, Container, Button} from "react-bootstrap";
 
-function NavBar({ setUser }) {
+function NavBar({ setUser, user }) {
 
     function handleLogoutClick() {
         fetch("/logout", { method: "DELETE" }).then((r) => {
@@ -13,16 +15,22 @@ function NavBar({ setUser }) {
 
     return (
         <div>
-            <NavLink className="nav" exact to="/">Home</NavLink>
-            <NavLink className="nav" exact to="/barbers">Barbers</NavLink>
-            <NavLink className="nav" exact to="/my-appointments">My Appointments</NavLink>
-            <NavLink className="nav" exact to="/booking">Book An Appointment</NavLink>
-            <button className="nav" onClick={handleLogoutClick} >
-                Logout
-            </button>
+            <Navbar bg="dark" variant="dark">
+                <Container>
+                    <Navbar.Brand as={NavLink} exact to={"/"}>Mel's Barbershop</Navbar.Brand>
+                    <Nav className="me-auto">
+                        <Nav.Link as={NavLink} exact to={"/"}>Home</Nav.Link>
+                        <Nav.Link as={NavLink} exact to={"/barbers"}>Services</Nav.Link>
+                        <Nav.Link as={NavLink} exact to={"/my-appointments"}>My Appointments</Nav.Link>
+                        <Nav.Link as={NavLink} exact to={"/booking"}>Book An Appointment</Nav.Link>
+                    </Nav>
+                    <Nav>
+                    <Button variant="secondary" onClick={handleLogoutClick}>Logout</Button>
+                    </Nav>
+                </Container>
+            </Navbar>
         </div>
     )
-
 }
 
 export default NavBar

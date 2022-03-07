@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :services
   resources :barbers
   resources :appointments
   resources :users

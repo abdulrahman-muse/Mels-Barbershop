@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Container, Form, Button, Alert, FloatingLabel } from "react-bootstrap";
 
 function SignUpForm({ setUser }) {
     const [username, setUsername] = useState("");
@@ -24,67 +25,74 @@ function SignUpForm({ setUser }) {
                 password_confirmation: passwordConfirmation,
                 email,
             }),
-        }).then((r) => {
+        }).then((response) => {
             setIsLoading(false);
-            if (r.ok) {
-                r.json().then((user) => setUser(user));
+            if (response.ok) {
+                response.json().then((user) => setUser(user));
             } else {
-                r.json().then((err) => setErrors(err.errors));
+                response.json().then((errorData) => setErrors(errorData.errors));
             }
-        });
+        })
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    autoComplete="off"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="email">Email</label>
-                <input
-                    type="text"
-                    id="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    autoComplete="current-password"
-                />
-            </div>
-            <div>
-                <label htmlFor="password">Password Confirmation</label>
-                <input
-                    type="password"
-                    id="password_confirmation"
-                    value={passwordConfirmation}
-                    onChange={(e) => setPasswordConfirmation(e.target.value)}
-                    autoComplete="current-password"
-                />
-            </div>
-            <div>
-                <button type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
-            </div>
-            <div>
-                {errors.map((err) => (
-                    <p key={err}>{err}</p>
-                ))}
-            </div>
-        </form>
+        <Container>
+            <Form style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }} onSubmit={handleSubmit}>
+                <Form.Group>
+                    <FloatingLabel label="Username">
+                        <Form.Control
+                            placeholder="Username"
+                            className="mb-3"
+                            type="text"
+                            id="username"
+                            autoComplete="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel label="Email">
+                        <Form.Control
+                            placeholder="Email"
+                            className="mb-3"
+                            type="text"
+                            id="Email"
+                            autoComplete="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel label="Password">
+                        <Form.Control
+                            placeholder="Password"
+                            className="mb-3"
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            autoComplete="current-password"
+                        />
+                    </FloatingLabel>
+                    <FloatingLabel label="Password Confirmation">
+                        <Form.Control
+                            placeholder="Confirm Password"
+                            className="mb-3"
+                            type="password"
+                            id="password_confirmation"
+                            value={passwordConfirmation}
+                            onChange={(e) => setPasswordConfirmation(e.target.value)}
+                            autoComplete="current-password"
+                        />
+                    </FloatingLabel>
+                    <Button variant="dark" className='m-3' type="submit"> {isLoading ? "Loading..." : "Sign Up"} </Button>
+                    <div>
+                        {errors.map((err) => (
+                            <Alert key={err} variant={'danger'}>{err}</Alert>
+                        ))}
+                    </div>
+                </Form.Group>
+            </Form>
+        </Container>
     );
 }
 
-export default SignUpForm; 
+export default SignUpForm;

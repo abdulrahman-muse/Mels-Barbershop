@@ -9,20 +9,16 @@ import {
 } from "react-router-dom";
 import Home from './components/Home';
 import MyAppointments from './components/MyAppointments';
-import Barbers from './components/Barbers';
 import BookingForm from './components/BookingForm';
+import Barbers from './components/Barbers';
 
-
-let allServices = [
-
-]
 
 
 function App() {
 
   const [user, setUser] = useState(null);
   const [barbers, setBarbers] = useState([]);
-  const [services, setServices] = useState(allServices);
+  const [services, setServices] = useState();
   
 
 
@@ -43,22 +39,30 @@ function App() {
       })
   }, []);
 
+  useEffect(() => {
+    fetch("/services")
+      .then((response) => response.json())
+      .then((data) => {
+        setServices(data);
+      })
+  }, []);
+
 
   if (!user) return <Login setUser={setUser} />;
 
   return (
     <div className="App">
       <Router>
-      <NavBar setUser={setUser} />
+      <NavBar setUser={setUser} user={user} />
       <Switch>
         <Route exact path="/">
-          <Home/>
+          <Home />
+        </Route>
+        <Route exact path="/barbers">
+          <Barbers barbers={barbers} services={services}/>
         </Route>
         <Route exact path="/my-appointments">
           <MyAppointments/>
-        </Route>
-        <Route exact path="/barbers">
-          <Barbers barbers={barbers}/>
         </Route>
         <Route exact path="/booking">
           <BookingForm/>

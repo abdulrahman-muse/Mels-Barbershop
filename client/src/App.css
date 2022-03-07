@@ -9,10 +9,18 @@
 }
 
 .container {
-  margin-top: 100px;
+  margin-top: px;
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
+  
+}
+
+.ccontainer {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  flex-flow: column wrap;
   
 }
 
@@ -22,4 +30,8 @@
 
 .nav {
   margin: 0 50px;
+}
+
+h1 {
+  padding-top: 20px;
 }
