@@ -18,10 +18,10 @@ user1 = User.create(username: "abdulm15", email:"abdul@gmail.com", password:"pas
 
 puts "creating services"
 
-s1 = Service.create(name: "Regular Haircut", price: 25 , about: "This service is typically for tapers, fades, etc")
-s2 = Service.create(name: "Haircut + Trim", price: 30 , about: "This service includes any regular haircut plus a trim")
-s4 = Service.create(name: "Lineup Only", price: 10 , about: "This service is for lineups only")
-s5 = Service.create(name: "Beard Trim and Lineup" , price: 20, about: "This service comes with a wash and beard massage before the trim and lineup")
-s6 = Service.create(name: "Kid's Haircut", price: 15 , about: "This service is only for kid's under the age of 12")
-
+s1 = Service.create(name: "Regular Haircut", price: 25 )
+s6 = Service.create(name: "Deep Wash & Conditioner", price: 15  )
+s2 = Service.create(name: "Haircut + Trim", price: 30 )
+s3 = Service.create(name: "Lineup Only", price: 10 )
+s4 = Service.create(name: "Beard Trim and Lineup" , price: 20)
+s5 = Service.create(name: "Kid's Haircut", price: 15  )
 

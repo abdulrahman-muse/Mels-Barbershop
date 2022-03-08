@@ -11,7 +11,7 @@ function Login({ setUser }) {
         <section>
             <div className='App'>
                 <Container>
-                    <h1 className='m-5'>Mel's Barbershop 💈</h1>
+                    <h1 className='m-5'>Mel's Barbershop </h1>
                     {showLogin ? (
                         <>
                             <LoginForm setUser={setUser} />

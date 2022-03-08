@@ -69,7 +69,7 @@ const times = [
 ]
 
 
-function MyAppointments({ appointments, bookAppt, user, errors, services, barbers , cancelAppt}) {
+function Booking({ appointments, bookAppt, user, errors, services, barbers, cancelAppt }) {
 
     let { id } = useParams()
 
@@ -78,7 +78,7 @@ function MyAppointments({ appointments, bookAppt, user, errors, services, barber
     // let newBarbers = barbers.filter(b => b.id =! selectedBarber.id)
 
     // console.log(typeof id)
-    
+
 
     const [formData, setFormData] = useState({
         service: "",
@@ -105,23 +105,13 @@ function MyAppointments({ appointments, bookAppt, user, errors, services, barber
 
     return (
         <>
-            <div>
-                {appointments.length >= 1 ? (appointments.map((a) => (<div key={a.id}>
-                    <h1>Barber: {a.barber}</h1>
-                    <h2>Service: {a.service}</h2>
-                    <h2>Date: {a.date}</h2>
-                    <h2>Time: {a.time}</h2>
-                    <button onClick={() => cancelAppt(a.id)}>cancel</button>
-                    </div>))) 
-                    : <h1>No Upcoming Appointments</h1>}
-            </div>
-            <div className="App">
+            <div className="book">
                 <Container>
                     <h1 className="m-5">Book An Appointment</h1>
                     <Form style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }} onSubmit={onSubmit}>
                         <Form.Group>
                             <Form.Select size="sm" name="barber_id" onChange={handleInputChange}>
-                                { selectedBarber ? <option name="barber_id" value={selectedBarber.id} key={selectedBarber.id}>{selectedBarber.name}</option> : <option value={0} >Select Barber</option>}
+                                {selectedBarber ? <option name="barber_id" value={selectedBarber.id} key={selectedBarber.id}>{selectedBarber.name}</option> : <option value={0} >Select Barber</option>}
                                 {barbers.map((barber) => (
                                     <option name="barber_id" value={barber.id} key={barber.id}>{barber.name}</option>
                                 ))}
@@ -157,8 +147,19 @@ function MyAppointments({ appointments, bookAppt, user, errors, services, barber
                     </Form>
                 </Container>
             </div>
+            <hr />
+            <div className="apptcontainer">
+                {appointments.length >= 1 ? (appointments.map((a) => (<div className="item" key={a.id}>
+                    <h3>Barber: {a.barber}</h3>
+                    <h3>Service: {a.service}</h3>
+                    <h5>Date: {a.date}</h5>
+                    <h5>Time: {a.time}</h5>
+                    <button onClick={() => cancelAppt(a.id)}>cancel</button>
+                </div>)))
+                    : <h1>No Upcoming Appointments</h1>}
+            </div>
         </>
     )
 }
 
-export default MyAppointments
+export default Booking

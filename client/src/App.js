@@ -8,8 +8,8 @@ import {
   Route
 } from "react-router-dom";
 import Home from './components/Home';
-import MyAppointments from './components/MyAppointments';
-import Barbers from './components/Barbers';
+import Booking from './components/Booking';
+
 
 
 
@@ -95,16 +95,13 @@ function App() {
       <NavBar setUser={setUser} user={user} />
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home barbers={barbers} services={services} />
         </Route>
-        <Route exact path="/barbers">
-          <Barbers barbers={barbers} services={services}/>
+        <Route exact path="/booking">
+          <Booking cancelAppt={cancelAppt} barbers={barbers} errors={errors} services={services} user={user} bookAppt={bookAppt} appointments={appointments}/>
         </Route>
-        <Route exact path="/my-appointments">
-          <MyAppointments cancelAppt={cancelAppt} barbers={barbers} errors={errors} services={services} user={user} bookAppt={bookAppt} appointments={appointments}/>
-        </Route>
-        <Route exact path="/my-appointments/:id">
-          <MyAppointments cancelAppt={cancelAppt} barbers={barbers} errors={errors} services={services} user={user} bookAppt={bookAppt} appointments={appointments}/>
+        <Route exact path="/booking/:id">
+          <Booking cancelAppt={cancelAppt} barbers={barbers} errors={errors} services={services} user={user} bookAppt={bookAppt} appointments={appointments}/>
         </Route>
       </Switch>
       </Router>

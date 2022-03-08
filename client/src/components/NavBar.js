@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, Container, Button} from "react-bootstrap";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 
 function NavBar({ setUser, user }) {
 
@@ -20,11 +20,10 @@ function NavBar({ setUser, user }) {
                     <Navbar.Brand as={NavLink} exact to={"/"}>Mel's Barbershop</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link as={NavLink} exact to={"/"}>Home</Nav.Link>
-                        <Nav.Link as={NavLink} exact to={"/barbers"}>Services</Nav.Link>
-                        <Nav.Link as={NavLink} exact to={"/my-appointments"}>My Appointments</Nav.Link>
+                        <Nav.Link as={NavLink} exact to={"/booking"}>Bookings</Nav.Link>
                     </Nav>
                     <Nav>
-                    <Button variant="secondary" onClick={handleLogoutClick}>Logout</Button>
+                        <Button variant="secondary" onClick={handleLogoutClick}>Logout</Button>
                     </Nav>
                 </Container>
             </Navbar>
