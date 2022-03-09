@@ -78,7 +78,6 @@ function App() {
     fetch(`/appointments/${id}`, {
       method: "DELETE",
     })
-      .then((r) => r.json())
       .then((deletedAppt) => {
         console.log(deletedAppt)
         const filteredAppts = appointments.filter((a) => a.id !== id)

@@ -9,7 +9,7 @@ function Services({ services }) {
             <div className="servicecontainer">
                 {services?.map((s) => (<div className="item" key={s.id}>
                     <h2>{s.name}</h2>
-                    <p>Price: ${s.price}</p>
+                    <h5>Price: ${s.price}</h5>
                 </div>
                 ))}
             </div>

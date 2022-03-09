@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Form, Button, Alert } from "react-bootstrap";
-import { useParams } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
+
 
 
 const dates = [
@@ -70,19 +71,20 @@ const times = [
 
 
 function Booking({ appointments, bookAppt, user, errors, services, barbers, cancelAppt }) {
-
+   
     let { id } = useParams()
 
-    let selectedBarber = barbers.find(element => element.id === parseInt(id))
+    let selectedBarber = barbers.filter(element => element.id === parseInt(id))[0]
 
-    // let newBarbers = barbers.filter(b => b.id =! selectedBarber.id)
+    let newBarbers = barbers.filter(element => element.id !== parseInt(id))
+
 
     // console.log(typeof id)
 
 
     const [formData, setFormData] = useState({
         service: "",
-        barber_id: "",
+        barber_id: selectedBarber === undefined ? "": selectedBarber.id ,
         date: "",
         time: "",
         user_id: user.id,
@@ -107,12 +109,12 @@ function Booking({ appointments, bookAppt, user, errors, services, barbers, canc
         <>
             <div className="book">
                 <Container>
-                    <h1 className="m-5">Book An Appointment</h1>
+                    <h1 className="m-5">Book An Appointment 💈</h1>
                     <Form style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }} onSubmit={onSubmit}>
                         <Form.Group>
                             <Form.Select size="sm" name="barber_id" onChange={handleInputChange}>
                                 {selectedBarber ? <option name="barber_id" value={selectedBarber.id} key={selectedBarber.id}>{selectedBarber.name}</option> : <option value={0} >Select Barber</option>}
-                                {barbers.map((barber) => (
+                                {newBarbers.map((barber) => (
                                     <option name="barber_id" value={barber.id} key={barber.id}>{barber.name}</option>
                                 ))}
                             </Form.Select>
@@ -148,15 +150,15 @@ function Booking({ appointments, bookAppt, user, errors, services, barbers, canc
                 </Container>
             </div>
             <hr />
+            <h1>My Appointments:</h1>
             <div className="apptcontainer">
                 {appointments.length >= 1 ? (appointments.map((a) => (<div className="item" key={a.id}>
-                    <h3>Barber: {a.barber}</h3>
-                    <h3>Service: {a.service}</h3>
-                    <h5>Date: {a.date}</h5>
-                    <h5>Time: {a.time}</h5>
-                    <button onClick={() => cancelAppt(a.id)}>cancel</button>
+                    <h2>Service: {a.service}</h2>
+                    <h4>{a.barber}</h4>
+                    <h5>{a.date} at {a.time}</h5>
+                    <Button variant="dark" onClick={() => cancelAppt(a.id)}>Cancel</Button>
                 </div>)))
-                    : <h1>No Upcoming Appointments</h1>}
+                    : <h4>*No Upcoming Appointments*</h4>}
             </div>
         </>
     )

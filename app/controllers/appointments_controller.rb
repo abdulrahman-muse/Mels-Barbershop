@@ -14,6 +14,7 @@ class AppointmentsController < ApplicationController
     def destroy
         appt = Appointment.find_by(id: params[:id])
         appt.destroy
+        head :no_content
     end
 
 private

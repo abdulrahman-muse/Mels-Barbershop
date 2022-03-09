@@ -17,10 +17,10 @@ function NavBar({ setUser, user }) {
         <div>
             <Navbar bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand as={NavLink} exact to={"/"}>Mel's Barbershop</Navbar.Brand>
+                    <Navbar.Brand as={NavLink} exact to={"/"}>Mel's Barbershop 💈</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link as={NavLink} exact to={"/"}>Home</Nav.Link>
-                        <Nav.Link as={NavLink} exact to={"/booking"}>Bookings</Nav.Link>
+                        <Nav.Link as={NavLink} exact to={"/booking"}>Booking</Nav.Link>
                     </Nav>
                     <Nav>
                         <Button variant="secondary" onClick={handleLogoutClick}>Logout</Button>
